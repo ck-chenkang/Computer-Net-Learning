@@ -26,6 +26,8 @@
 
 还有一些高级技巧，具体可以参考官方文档：[过滤器文档](https://www.wireshark.org/docs/wsug_html/#ChAdvShowPacketBytes)
 
+- 目标IP地址过滤：ip.dst == 192.168.13.42
+
 ## 捕获过滤器
 
 百度搜 [捕获过滤器语法](https://www.baidu.com/s?ie=UTF-8&wd=%E6%8D%95%E8%8E%B7%E8%BF%87%E6%BB%A4%E5%99%A8%E8%AF%AD%E6%B3%95)

@@ -44,7 +44,23 @@ The different classical OPC protocols are completely self-sustained and have not
 
 ![image-20210903171136940](Imag/image-20210903171136940.png)
 
+## OPC Data Access
 
+The most basic protocol of the OPC stack is the Data Access protocol that gets data out of the control systems into other systems on the shop floor. Each information about a specific tag or data point contains some information about it. First you have the data itself and that is called **Value** and of course the **Name** of it. To that comes a number of other pieces of information that describes the information, the first is the **Timestamp** that gives you the exact time when the value was read. This timestamp can be taken either directly from the underlying system or assigned to it when the data is read in the OPC server. The last piece is called **Quality** which gives a basic understanding if the data is valid or not. 
+
+![image-20210903171226202](Imag/image-20210903171226202.png)
+
+## OPC Alarm & Events
+
+The second protocol to be added to the OPC stack was Alarms & Events. This protocol is fundamentally different from the DA protocol simply due to the fact that events not have a current value. This means that this protocol always is a subscription based service where the clients gets all the events that comes in. In terms of data that comes with the event there is no tags and therefore not any name and quality but there is of course a **Timestamp**. But like in the case with DA there is no store in the server and once the event is transferred the server forgets it was ever there. 
+
+![image-20210903171249300](Imag/image-20210903171249300.png)
+
+## OPC Historical Analysis
+
+The difference between DA, AE and HDA is that HDA contains historical data and you can call for a large amount of past data. The protocol therefore supports long record sets of data for one or more data points. It was designed to provide a unified way to get out and distribute historical data stored in SCADA or Historian systems **like OSI-PI or Historian from GE**. The protocol is not so widely used today and now the introduction of OPC UA makes it somewhat obsolete.
+
+![image-20210903171312255](Imag/image-20210903171312255.png)
 
 ## OPC的未来在OPC UA
 
@@ -109,3 +125,23 @@ Web服务（SOAP）通讯协定可以支援许多不同的工具（包括Java环
 ## 最重要的意义从OPC到OPC UA
 
 The most significant difference between classical OPC and OPC UA is that it doesn’t rely on OLE or DCOM technology from Microsoft that makes it possible to implement it on any platform if that being Apple, Linux (JAVA) or Windows. The other very important part of UA is the possibility to use structures or models. This means that the data tags or points can be grouped and be given context which make governance and maintenance much easier. These models can be identified in runtime which makes it possible for a client to explore connection possible by asking the server.
+
+![image-20210903171341162](Imag/image-20210903171341162.png)
+
+## OPC UA Information Modelling
+
+The information modelling is very modern in OPC UA. These models can be defined by manufactures or protocols like BACNet but it can also contain more of a **MESH structure** where very complex relations and connections between points and nodes can be defined. The possibility also exist to have data structures so that certain data always is grouped and handled as one piece. This is important in many applications where you want to be sure that the data set is taken at the same time.
+
+![image-20210903171438529](Imag/image-20210903171438529.png)
+
+## OPC UA Communication layers
+
+OPC UA is as said before built to be platform independent and the communication is built into layers on top of the standard TCP/IP stack. Above the standard transport layers there are two layers, one that handles the session and one to establish a secure channel between the client and server. The transport layer is made up of **TCP/IP and on top of that SSL, HTTP or HTTPS**. The Communication layer secure the communication channel not just that the data is corrupted but also it secure the authentication so that the end points can’t be infiltrated and changed. This is based on **X.509 certificates** that have three parts to it and the first peer to peer trust needs to be manually done but after that the rest is taken care of securely.
+
+![image-20210903171456768](Imag/image-20210903171456768.png)
+
+## Applications with OPC UA
+
+So far OPC UA are mostly used for bridging between different OPC servers, this is called tunneling. This is something that for example **KEPServerEX OPC UA** tunnel does. Other applications include the **GE Global discovery server** and the same control system that have full OPC UA support for browsing the data structures. This is still quite uncommon but the development goes fast and there is a lot of work done in order to include data models for transferring models from **BACNet, ISA95 and PLCopen**. 
+
+![image-20210903171509331](Imag/image-20210903171509331.png)
